@@ -7,9 +7,6 @@ branches:
   only:
   - master
 
-services:
-  - docker
-
 arch:
   - aarch64
 
@@ -21,6 +18,7 @@ addons:
 
 # Build Test
 script:
+  - sudo apt-get install docker.io
   - cd openEuler20.03
   - docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 -t kunpengcompute/openeuler:rpmbuild aarch64
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
