@@ -7,6 +7,9 @@ branches:
   only:
   - master
 
+services:	
+  - docker
+
 arch:
   - aarch64
 
@@ -18,9 +21,12 @@ addons:
 
 # Build Test
 script:
-  - sudo apt-get install docker.io
   - cd openEuler20.03
-  - docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 -t kunpengcompute/openeuler:rpmbuild aarch64
+  - if [  "$(uname -m)" == "aarch64" ]; then
+      docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 -t kunpengcompute/openeuler:rpmbuild aarch64;
+    else
+      docker build -t kunpengcompute/openeuler:rpmbuild.x86_64 x86_64;
+    fi
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push kunpengcompute/openeuler:rpmbuild.aarch64
   - docker push kunpengcompute/openeuler:rpmbuild
