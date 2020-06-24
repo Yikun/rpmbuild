@@ -22,6 +22,7 @@ addons:
 
 # Build Test
 script:
+  - sudo apt-get install docker.io
   - cd openEuler20.03
   - |
     if [  "$(uname -m)" == "aarch64" ]; then
