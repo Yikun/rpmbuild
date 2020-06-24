@@ -7,9 +7,6 @@ branches:
   only:
   - master
 
-services:
-  - docker
-
 arch:
   - amd64
   - aarch64
