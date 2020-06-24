@@ -7,8 +7,8 @@ branches:
   only:
   - master
 
-services:	
-  - docker	
+services:
+  - docker
 
 arch:
   - aarch64
@@ -22,7 +22,7 @@ addons:
 # Build Test
 script:
   - cd openEuler20.03
-  - docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 aarch64
+  - docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 -t kunpengcompute/openeuler:rpmbuild aarch64
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push kunpengcompute/openeuler:rpmbuild.aarch64
-  - docker push kunpengcompute/openeuler:rpmbuild.aarch64 kunpengcompute/openeuler:rpmbuild
+  - docker push kunpengcompute/openeuler:rpmbuild
