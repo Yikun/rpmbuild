@@ -12,7 +12,7 @@ services:
 
 arch:
   - amd64
-  - aarch64
+  - arm64
 
 addons:
   apt:
@@ -23,11 +23,10 @@ addons:
 # Build Test
 script:
   - cd openEuler20.03
-  - |
-    if [  "$(uname -m)" == "aarch64" ]; then
-      docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 aarch64
+  - if [  "$(uname -m)" == "aarch64" ]; then
+      docker build -t kunpengcompute/openeuler:rpmbuild.aarch64 aarch64;
     else
-      docker build -t kunpengcompute/openeuler:rpmbuild.x86_64 x86_64
+      docker build -t kunpengcompute/openeuler:rpmbuild.x86_64 x86_64;
     fi
 
 # Deploy to dockerhub
@@ -36,14 +35,13 @@ deploy:
   script:
     - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
     - echo "Login OK, start to push."
-    - |
-      if [  "$(uname -m)" == "aarch64" ]; then
-        echo "Push aarch64"
-        docker push kunpengcompute/openeuler:rpmbuild.aarch64
-        docker push kunpengcompute/openeuler:rpmbuild.aarch64 kunpengcompute/openeuler:rpmbuild
+    - if [  "$(uname -m)" == "aarch64" ]; then
+        echo "Push aarch64";
+        docker push kunpengcompute/openeuler:rpmbuild.aarch64;
+        docker push kunpengcompute/openeuler:rpmbuild.aarch64 kunpengcompute/openeuler:rpmbuild;
       else
-        echo "Push x86"
-        docker push kunpengcompute/openeuler:rpmbuild.x86_64
+        echo "Push x86";
+        docker push kunpengcompute/openeuler:rpmbuild.x86_64;
       fi
   on:
     branch: master
