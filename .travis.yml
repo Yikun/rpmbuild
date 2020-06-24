@@ -11,7 +11,8 @@ services:
   - docker
 
 arch:
-  - aarch64
+  - amd64
+  - arm64
 
 addons:
   apt:
